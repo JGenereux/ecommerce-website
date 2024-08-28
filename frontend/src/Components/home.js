@@ -1,20 +1,25 @@
 import header from "../Images/header.jpg";
-import office from "../Images/office.jpg";
-import cup from "../Images/impcup.jpg";
-import specItem from "../Images/impitem.jpg";
-import Navbar from "../Components/navbar";
+import fblogo from "../Images/fblogo.png";
+import iglogo from "../Images/iglogo.png";
+import navbarlogo from "../Images/navbarLogo.png";
 
+import Navbar from "./navbar/navbar";
+import ImageSlider from "./about";
+import axios from "axios";
 import "../styles/home.css";
-import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   return (
     <div>
       <Navbar />
-      <div className="home-container">
-        <Header />
-        <About />
+      <Header />
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <FeaturedProducts />
       </div>
+      <Description />
+      <Footer />
     </div>
   );
 }
@@ -24,59 +29,170 @@ function Header() {
     <div className="header-container">
       <img
         src={header}
-        style={{ height: "225px", width: "100%", filter: "brightness(69%)" }}
+        style={{
+          height: "60vh",
+          width: "100%",
+          filter: "brightness(69%)",
+        }}
         alt="Heartland Shoppes Header"
       ></img>
+      <h3>Heartland Shoppes</h3>
+      <p>
+        Discover the Heart of Shopping at Heartland Shoppes – Where Quality
+        Meets Community.
+      </p>
+
+      <Link to="/shop" className="shopbtn-link">
+        Shop Now
+      </Link>
     </div>
   );
 }
 
-function About() {
-  const images = [
-    "This is my office/workspace",
-    "Working on a tumbler for a client. It is currently on the spinner. Will be shipped out in a few days.",
-    "Getting ready for Christmas Eve and the arrival of the man in red. You guessed it Santa and the crew.",
-  ];
-  //State to display current image based on the button clicked,
-  //default picture is office
-  const [currentImage, setCurrentImage] = useState(office);
-  const [description, setDescription] = useState(images[0]);
+function FeaturedProducts() {
+  const [items, setItems] = useState([]);
+  const [displayItems, setDisplayItems] = useState([]);
+  const [beginRange, setBeginRange] = useState(0);
+  const [endRange, setEndRange] = useState(4);
 
-  function handleChange(image) {
-    setCurrentImage(image);
+  useEffect(() => {
+    async function getFetchedItems() {
+      try {
+        const response = await axios.get("http://localhost:5000/inventory/");
+        const fetchedItems = response.data;
 
-    if (image === office) {
-      setDescription(images[0]);
-    } else if (image === cup) {
-      setDescription(images[1]);
-    } else {
-      setDescription(images[2]);
+        const slicedItems = fetchedItems.slice(0, 4);
+        setDisplayItems(slicedItems);
+        setItems(fetchedItems);
+      } catch (error) {
+        console.log(error);
+      }
     }
+    getFetchedItems();
+  }, []);
+
+  function handleRightRotate() {
+    //do nothing if moving right will be out of bounds
+    if (endRange >= items.length) {
+      return;
+    }
+    const slicedItems = items.slice(beginRange + 1, endRange + 1);
+    setBeginRange(beginRange + 1);
+    setEndRange(endRange + 1);
+    setDisplayItems(slicedItems);
   }
+
+  function handleLeftRotate() {
+    //do nothing if moving left will be out of bounds
+    if (beginRange <= 0) {
+      return;
+    }
+    const slicedItems = items.slice(beginRange - 1, endRange - 1);
+    setBeginRange(beginRange - 1);
+    setEndRange(endRange - 1);
+    setDisplayItems(slicedItems);
+  }
+
+  return (
+    <div
+      style={{
+        textAlign: "center",
+        paddingTop: "10px",
+        width: "70%",
+      }}
+    >
+      <h2 className="ftproducts-header">Featured Products</h2>
+      <div className="ftproducts-container">
+        {beginRange > 0 && <button onClick={handleLeftRotate}>&#8592;</button>}
+        {displayItems?.map((item, i) => (
+          <Item item={item} key={i + 1} />
+        ))}
+        {endRange < items.length && (
+          <button style={{ marginLeft: "15px" }} onClick={handleRightRotate}>
+            &#8594;
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function Item({ item }) {
+  return (
+    <Link to={`/shop/item/${item.itemName}`} className="item-links">
+      <div className="ftproducts-singleitem">
+        <img src={item.imageUrl} alt={item.itemName}></img>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "start",
+            paddingLeft: "5px",
+          }}
+        >
+          <p style={{ margin: 0, marginTop: 10 }}>
+            {item.itemName.length > 30
+              ? `${item.itemName.substring(0, 23)}..`
+              : item.itemName}
+          </p>
+          <p style={{ margin: 0, marginTop: 5 }}>${item.price}.00</p>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function Description() {
   return (
     <div>
-      <div className="about-container">
-        <h3 className="about-title">My Journey</h3>
-        <div className="about-info">
-          <img src={currentImage} alt="null"></img>
-          <div class="button-container">
-            <button onClick={() => handleChange(office)}></button>
-            <button onClick={() => handleChange(cup)}></button>
-            <button onClick={() => handleChange(specItem)}></button>
-          </div>
-        </div>
-        <p className="aboutitem-description">{description}</p>
-        <h2>Everything made from the Heart. Handmade with love.</h2>
-        <p className="about-description">
-          I decided in October 2017, that I wanted to get back into crafting. It
-          has changed a lot and the possibilities are endless. I have called my
-          shop Heartlandshoppes as I want to help people celebrate moments in
-          their lives. Made from the heart. I have a lot of new ideas coming to
-          my Heartlandshoppes so stay tuned. I’m very excited about what is to
-          come. I am leaning toward family heirlooms. If you have a design idea
-          in mind, ask: I maybe able to get it done for you. I enjoy the process
-          of creating from start to the finish.
+      <h2 className="descHeader-container">
+        Express yourself with a Unique Handmade Gift
+      </h2>
+      <div className="description-container">
+        <p>
+          How would you like to express yourself? Guaranteed, family and friends
+          will admire and appreciate your custom handmade item, as intended.
+          Many of these custom handmade gifts are very personal and do not
+          appear in our catalogue. Don't let what you see in our catalogue limit
+          your creativity and inspiration. If you can dream it, Heartland
+          Shoppes can help bring it to life.
         </p>
+        <p style={{ marginBottom: 0 }}>
+          We create t-shirt concepts for charity teams, clubs and small
+          businesses. No order is to small for Heartland Shoppes. Our designs
+          have shown up at Spin Classes, Charity T-Rex runs, our regional
+          Neo-natal Unit, rare diseases month and similar worthwhile causes.
+          Teams sporting our designs get noticed. Whether its a t-shirt and/or a
+          water bottle, the competitors proudly display their custom handmade
+          items, as they rise to the challenges ahead of them; as competitors
+          and supporters of these events. Heartland Shoppes applauds all
+          participants in these noble initiatives.
+        </p>
+        <p style={{ marginBottom: 8 }}>Want A Custom Product?</p>
+        <Link to="/contact" className="item-links">
+          <p>Request Product</p>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function Footer() {
+  return (
+    <div className="footer-container">
+      <img
+        className="footer-mainLogo"
+        src={navbarlogo}
+        alt="Heartland Shoppes Logo"
+      ></img>
+      <h3 className="footer-text">Connect With Me</h3>
+      <div className="footer-icons">
+        <a href="https://www.facebook.com/DonnaHeartlandShoppes">
+          <img src={fblogo} alt="facebook logo"></img>
+        </a>
+        <a href="https://www.instagram.com/heartlandshoppes.etsy/">
+          <img src={iglogo} alt="instagram logo"></img>
+        </a>
       </div>
     </div>
   );

@@ -1,7 +1,9 @@
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import Navbar from "../navbar";
+import { useContext, useEffect, useState } from "react";
+import Navbar from "../navbar/navbar";
+
+import { CartContext } from "../navbar/CartContext";
 
 export default function ItemPage() {
   return (
@@ -14,11 +16,16 @@ export default function ItemPage() {
 
 function Item() {
   const { name } = useParams();
+
   const [quantity, setQuantity] = useState(0);
   const [url, setUrl] = useState("");
   const [itemName, setItemName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [seen, setSeen] = useState(false); //state for checking if item has been added to the cart
+
+  const { cartItems, addToCart, removeFromCart, updateItemQuantity } =
+    useContext(CartContext);
 
   function handleData(info) {
     setUrl(info["imageUrl"]);
@@ -40,6 +47,33 @@ function Item() {
     }
     fetchItemData(name);
   }, [name]);
+
+  useEffect(() => {
+    // Synchronize item page quantity with cart
+    const foundItem = cartItems.find((item) => item.name === itemName);
+    if (foundItem) {
+      setQuantity(foundItem.quantity);
+      setSeen(true);
+    } else if (seen) {
+      setQuantity(0);
+      setSeen(false);
+    }
+  }, [cartItems, itemName, seen]);
+
+  function handleAddToCart() {
+    //don't add nothing!
+    if (quantity === 0) return;
+
+    //CHECK IF ITEM EXISTS IN THE CART ALREADY, DONT WANT DUPLICATES
+    const foundItem = cartItems.find((item) => item.name === itemName);
+    if (foundItem) return;
+
+    const item = { name, price, quantity, url };
+    addToCart(item);
+  }
+
+  //want the quantity to be 0 if there is no item otherwise display the
+  //item quantity
 
   return (
     <div className="singleItem-container">
@@ -69,18 +103,36 @@ function Item() {
               </select>
             </div>
             <div className="additem-button">
+              {/*needs to reset to 0 when removing from cart */}
               <button
-                onClick={() => setQuantity(quantity >= 1 ? quantity - 1 : 0)}
+                onClick={() => {
+                  const newQuantity = quantity >= 1 ? quantity - 1 : 0;
+                  setQuantity(newQuantity);
+
+                  if (newQuantity === 0) {
+                    removeFromCart(itemName);
+                  } else {
+                    updateItemQuantity(itemName, newQuantity);
+                  }
+                }}
               >
                 -
               </button>
+              {/* To synchronize quality from itempage and cart */}
               <p>{quantity}</p>
               <button
-                onClick={() => setQuantity(quantity >= 99 ? 99 : quantity + 1)}
+                onClick={() => {
+                  const newQuantity = quantity >= 99 ? 99 : quantity + 1;
+                  setQuantity(newQuantity);
+                  updateItemQuantity(itemName, newQuantity);
+                }}
               >
                 +
               </button>
             </div>
+            <button className="addtocart-btn" onClick={handleAddToCart}>
+              Add To Cart
+            </button>
             <h2 className="item-descriptionTitle">About this item: </h2>
             <p className="item-description">{description}</p>
           </div>

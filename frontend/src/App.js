@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { CartProvider } from "./Components/navbar/CartContext";
 
 import Home from "./Components/home";
 import Shop from "./Components/Shop/shop";
@@ -9,16 +10,18 @@ import Element from "./Components/inventory";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/shop/*" element={<Shop />} />
-        <Route path="/shop/item/:name" element={<ItemPage />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/inventory" element={<Element />} />
-      </Routes>
-    </Router>
+    <CartProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop/*" element={<Shop />} />
+          <Route path="/shop/item/:name" element={<ItemPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/inventory" element={<Element />} />
+        </Routes>
+      </Router>
+    </CartProvider>
   );
 }
 

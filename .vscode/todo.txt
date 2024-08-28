@@ -1,0 +1,15 @@
+
+1: make each category have corresponding options (like sizes and colors, etc)
+2: make image display on homepage animated.
+
+3: multiimages (upload 4 seperate images, put all into array, use the image
+                slider component in home.js and display that on shoppage and homepage)
+
+4: pass more props into searchbar 
+
+//final things will be
+    -figure out how to handle the payments made
+    -oauth
+
+
+

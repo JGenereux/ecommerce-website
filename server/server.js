@@ -22,9 +22,13 @@ connection.once("open", () => {
 
 //import database for inventory
 const inventoryRouter = require("./routes/inventory");
+//import database for images
 const imageRouter = require("./routes/images");
+//import stripe api payment route
+const stripeRouter = require("./routes/checkout");
 app.use("/inventory", inventoryRouter);
 app.use("/image", imageRouter);
+app.use("/checkout", stripeRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started at port ${PORT}`);

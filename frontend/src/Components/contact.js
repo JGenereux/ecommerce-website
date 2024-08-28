@@ -1,9 +1,9 @@
-import Navbar from "./navbar";
+import Navbar from "./navbar/navbar";
 
 export default function Contact() {
   return (
     <div>
-      <Navbar></Navbar>
+      <Navbar />
     </div>
   );
 }

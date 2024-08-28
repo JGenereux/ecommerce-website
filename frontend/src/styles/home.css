@@ -9,16 +9,20 @@ ul {
 
 .navbar {
   background-color: white;
-  border-bottom: 5px solid #453e3d;
+  border-bottom: 4px solid black;
   font-family: "customFont";
   font-weight: 800;
 }
 
 .navbar-logo {
   height: 50px;
-  width: 100px;
+  width: 75px;
+  margin-right: 0.5rem;
 }
 
+.text-link:hover {
+  color: #363635;
+}
 .navbar ul {
   display: flex;
   flex-direction: row;
@@ -27,7 +31,7 @@ ul {
   width: 100%;
 }
 
-.navbar li {
+.text-link {
   margin-left: 1.3rem;
 }
 
@@ -37,13 +41,10 @@ ul {
   text-decoration: inherit;
 }
 
-.navbar .navbar-searchBar {
-  margin: 0px;
-}
-
 /* Search bar css*/
 .spec-container {
   margin-left: 5px;
+  margin-right: 1rem;
 }
 
 .searchBar {
@@ -54,64 +55,425 @@ ul {
   border: 1px solid;
 }
 
+.blur-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  backdrop-filter: blur(1.5px);
+  z-index: 999;
+}
+
 .search-results {
   position: absolute;
+  margin-top: 30px;
   display: flex;
+  z-index: 1000;
   flex-direction: column;
-  padding-left: 30%;
+  width: 500px;
+  max-height: 360px;
+  overflow-y: auto;
+  margin-left: 2.3rem;
+  border-radius: 20px;
+  font-size: 16px;
+  box-shadow: 14px 14px 16px rgba(13, 12, 12, 0.1);
+}
+
+.search-results a {
+  text-decoration: none;
+  color: black;
+}
+
+.search-results::-webkit-scrollbar {
+  width: 8px;
+}
+
+.search-results::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  height: 60px;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+  height: 60px;
+}
+
+.search-results::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  height: 60px;
 }
 
 .display-itemsearch {
   display: flex;
   flex-direction: row;
-  width: 300px;
+  align-items: center;
+  height: 120px;
+  border-bottom: 2px solid;
   background-color: white;
+  padding: 0px 0px 0px 10px;
+}
+
+.display-itemsearch a {
+  text-decoration: none;
 }
 
 .display-itemsearch img {
-  height: 70px;
-  width: 70px;
+  height: 80px;
+  width: 80px;
 }
 
 .itemsearch-text {
   display: flex;
   flex-direction: column;
-  margin-left: 5px;
-  font-size: 12px;
+  margin-left: 10px;
 }
 
+.itemsearch-text p {
+  margin-top: 0;
+}
+
+/*CSS for footer*/
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 150px;
+  width: 100%;
+  background-color: rgb(142, 171, 196);
+  font-family: customFont;
+}
+
+.footer-mainLogo {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  margin-top: 10px;
+  background-color: white;
+}
+
+.footer-text {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.footer-container a img {
+  height: 30px;
+  width: 35px;
+  padding: 5px;
+  border-radius: 25px;
+  background-color: black;
+  margin-right: 15px;
+}
 /*CSS for shopping cart*/
 .cart-container {
+  margin-left: auto;
+  padding-right: 20px;
+  padding-bottom: 2px;
+}
+
+.active-cart {
+  margin-top: 2rem;
+  position: fixed;
+  right: 2.5rem;
+  top: 0;
+  max-height: 400px;
+  max-width: 425px;
+  border: 2px solid orange;
+  background-color: white;
+  z-index: 1000;
+  height: 400px;
+  width: 425px;
+}
+
+.cart-container button,
+.basket-header button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.basket-container {
+  width: 100%;
+  height: auto;
+  overflow-y: auto; /* Allows scrolling if content overflow occurs*/
+}
+
+.basket-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 25px;
+  justify-content: space-between;
+}
+
+.cartdisplay-btn {
+  padding-right: 2rem;
+}
+
+.checkout-btn {
+  margin-top: 7%;
+  margin-left: 33%;
+  height: 50px;
+  width: 150px;
+  border-radius: 10px;
+  color: white;
+  font-family: "customFont";
+  background-color: rgb(29, 26, 26);
+  cursor: pointer;
+}
+
+/*Css for individual item in cart*/
+.cartitem-container {
+  font-family: "customFont";
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  background-color: lightcyan;
+}
+
+.cartitem-container img {
+  margin: 7px 0px 0px 15px;
+  max-height: 85px;
+  max-width: 85px;
+  width: 100%;
+  height: 100%;
+}
+
+.cartitem-container h4 {
+  margin: 7px 0px 0px 15px;
+}
+
+.cartItemInfo-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto 20px 0px auto;
+  text-align: center;
+  gap: 8px;
+}
+
+.cartItemInfo-container p,
+.cartItemInfo-container .cartquantity-btn {
+  margin: 0px;
+}
+
+.cartquantity-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.cartquantity-btn button {
+  height: 30px;
+  width: 30px;
+  background-color: cornflowerblue;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.cartquantity-btn p {
+  padding: 10px;
+}
+
+/*Home page css*/
+.header-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+@font-face {
+  font-family: "headerFont";
+  src: url("./Fonts/coolvetica\ rg.otf");
+}
+.header-container h3 {
+  position: absolute;
+  z-index: 1000;
+  font-size: 50px;
+  color: white;
+  font-family: headerFont;
+}
+
+.header-container p {
+  position: absolute;
+  top: 40%;
+  color: white;
+  font-weight: 500;
+  font-family: customFont;
+  font-size: 18px;
+}
+
+@font-face {
+  font-family: "btnFont";
+  src: url("./Fonts/FallingSkyBoldOblique-5zmv.otf");
+}
+
+/*Home page css*/
+.header-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+@font-face {
+  font-family: "headerFont";
+  src: url("./Fonts/coolvetica\ rg.otf");
+}
+.header-container h3 {
+  position: absolute;
+  z-index: 1000;
+  font-size: 50px;
+  color: white;
+  font-family: headerFont;
+}
+
+.header-container p {
+  position: absolute;
+  top: 40%;
+  color: white;
+  font-weight: 500;
+  font-family: customFont;
+  font-size: 18px;
+}
+
+@font-face {
+  font-family: "btnFont";
+  src: url("./Fonts/FallingSkyBoldOblique-5zmv.otf");
+}
+.shopbtn-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 30%;
+  height: 60px;
+  width: 140px;
+  border-radius: 30px;
+  font-family: btnFont;
+  font-size: 20px;
+  color: white;
+  background-color: black;
+  border: 2px solid white;
+  text-decoration: none;
+  text-align: center;
+}
+
+.header-container a {
+  text-decoration: none;
+  color: white;
+}
+
+.ftproducts-header {
+  font-family: btnFont;
+  font-size: 28px;
+  margin-bottom: 0;
+}
+
+.ftproducts-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 305px;
+  padding: 5px;
+  font-family: itemFont;
+  font-weight: bold;
+}
+
+.ftproducts-container button {
+  height: 35px;
+  border-radius: 30px;
+  font-size: 20px;
+  padding-bottom: 3px;
+  color: white;
+  background-color: black;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.ftproducts-singleitem {
+  height: 260px;
+  width: 175px;
+  margin-top: 20px;
+  background-color: white;
+  transition:
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+.ftproducts-singleitem:hover {
+  transform: scale(1.05); /* Scale up on hover */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Optional: Add a shadow */
+}
+
+.ftproducts-singleitem img {
+  height: 175px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 100%; /* Ensure image width fills the container */
+  transition: transform 0.2s ease-in-out; /* Apply transition to image */
+}
+
+.descHeader-container {
+  font-family: btnFont;
+}
+
+.description-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.description-container p {
+  font-weight: 1000;
+  font-family: itemFont;
+}
+
+.description-container a {
+  text-align: center;
+  height: 50px;
+  width: 150px;
+  color: white;
+  background-color: black;
+  font-family: btnFont;
 }
 
 /* About page CSS*/
+
 .about-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 10px;
+  padding-bottom: 30px;
 }
 
 .about-title {
-  margin-top: 2%;
-  padding: 0px 0px 0px 20px;
   font-size: 24px;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: btnFont;
 }
 
 .about-info {
   position: relative;
-  display: inline-flex;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
+
 .about-info img {
-  height: 350px;
-  width: 350px;
+  height: 325px;
+  width: 450px;
+  border-radius: 15px;
 }
 
 .button-container {
   position: absolute;
-  margin-top: 300px;
-  margin-left: 120px;
+  margin-top: 250px;
 }
 
 .button-container button {
@@ -129,7 +491,10 @@ ul {
 }
 
 .aboutitem-description {
-  width: 350px;
+  width: 450px;
+  margin-top: 0px;
+  font-size: 16px;
+  color: black;
   font-family: "customFont";
   font-weight: bolder;
 }
@@ -144,14 +509,6 @@ ul {
   width: 593px;
   text-align: start;
   margin: 0 auto;
-}
-
-.home-container {
-  background: linear-gradient(to bottom right, aliceblue, aliceblue);
-}
-
-.header-container {
-  position: relative;
 }
 
 /*Css for shop page*/
@@ -367,6 +724,14 @@ ul {
 
 .additem-button p {
   margin: 20px;
+}
+
+.addtocart-btn {
+  height: 40px;
+  width: 175px;
+  border-radius: 15px;
+  background: rgb(249, 149, 55);
+  margin: 20px 0px 0px 45px;
 }
 
 .item-descriptionTitle {

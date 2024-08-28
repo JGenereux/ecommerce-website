@@ -1,4 +1,4 @@
-import Navbar from "./navbar";
+import Navbar from "./navbar/navbar";
 import "../styles/home.css";
 import axios from "axios";
 import { useState } from "react";
