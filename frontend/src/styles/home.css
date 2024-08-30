@@ -170,8 +170,25 @@ ul {
 /*CSS for shopping cart*/
 .cart-container {
   margin-left: auto;
-  padding-right: 20px;
+  padding-right: 30px;
   padding-bottom: 2px;
+}
+
+.cart-items {
+  margin-top: 18px;
+}
+
+.cart-container p {
+  border: 2px solid black;
+  border-radius: 20px;
+  float: right;
+  padding: 5px;
+  margin-left: 10px;
+  text-align: center;
+  width: 20px;
+  font-weight: bold;
+  color: black;
+  background-color: rgb(255, 63, 63);
 }
 
 .active-cart {
@@ -179,13 +196,13 @@ ul {
   position: fixed;
   right: 2.5rem;
   top: 0;
-  max-height: 400px;
   max-width: 425px;
   border: 2px solid orange;
   background-color: white;
   z-index: 1000;
   height: 400px;
   width: 425px;
+  overflow-y: auto;
 }
 
 .cart-container button,
@@ -217,10 +234,12 @@ ul {
 .checkout-btn {
   margin-top: 7%;
   margin-left: 33%;
+  margin-bottom: 20px;
   height: 50px;
   width: 150px;
   border-radius: 10px;
   color: white;
+  font-size: 18px;
   font-family: "customFont";
   background-color: rgb(29, 26, 26);
   cursor: pointer;
@@ -232,7 +251,7 @@ ul {
   display: flex;
   flex-direction: row;
   padding: 5px;
-  background-color: lightcyan;
+  background-color: transparent;
 }
 
 .cartitem-container img {
@@ -269,7 +288,9 @@ ul {
 .cartquantity-btn button {
   height: 30px;
   width: 30px;
-  background-color: cornflowerblue;
+  color: white;
+  font-weight: bold;
+  background-color: black;
   border-radius: 15px;
   cursor: pointer;
 }
@@ -291,7 +312,6 @@ ul {
 }
 .header-container h3 {
   position: absolute;
-  z-index: 1000;
   font-size: 50px;
   color: white;
   font-family: headerFont;
@@ -324,7 +344,6 @@ ul {
 }
 .header-container h3 {
   position: absolute;
-  z-index: 1000;
   font-size: 50px;
   color: white;
   font-family: headerFont;
@@ -626,7 +645,8 @@ ul {
   border-radius: 10px;
   border-style: ridge;
   width: 350px;
-  height: 500px;
+  min-height: 500px;
+  max-height: fit-content;
   margin-top: 8%;
   margin-left: 38%;
   box-shadow: 7px 7px 3px lightcoral;
@@ -641,6 +661,17 @@ ul {
 .inventory-uplFile {
   cursor: pointer;
   margin-top: 35px;
+}
+
+.inventory-checkboxes {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.inventory-checkboxes label {
+  padding-top: 26px;
 }
 
 .inventory-form .inventory-submit {
@@ -738,8 +769,20 @@ ul {
   padding-top: 25px;
 }
 
+.category-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.category-options input {
+  height: 20px;
+  width: 150px;
+  border: 2px solid black;
+}
+
 /* CSS for inventory form button */
 .button-30 {
+  margin-bottom: 30px;
   align-items: center;
   appearance: none;
   background-color: #fcfcfd;

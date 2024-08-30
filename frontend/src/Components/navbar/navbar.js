@@ -37,6 +37,7 @@ function MainBar({
   isActive,
   setIsActive,
 }) {
+  const { cartItems } = useContext(CartContext);
   const [cartActive, setCartActive] = useState(false);
   return (
     <div className="navbar">
@@ -84,9 +85,17 @@ function MainBar({
         <li className={!cartActive ? "cart-container" : "active-cart"}>
           <div>
             {!cartActive ? (
-              <button onClick={() => setCartActive(true)}>🛒</button>
+              <div>
+                <button
+                  className={cartItems.length > 0 ? "cart-items" : ""}
+                  onClick={() => setCartActive(true)}
+                >
+                  🛒
+                </button>
+                {cartItems.length > 0 && <p>{cartItems.length}</p>}
+              </div>
             ) : (
-              <Cart setCartActive={setCartActive} />
+              <Cart setCartActive={setCartActive} cartItems={cartItems} />
             )}
           </div>
         </li>
@@ -173,9 +182,7 @@ function DisplayItem({ item }) {
 
 //Param is for allowing the user to close the cart.
 //Purpose is to display & allow modification for the entire cart
-function Cart({ setCartActive }) {
-  const { cartItems } = useContext(CartContext);
-
+function Cart({ setCartActive, cartItems }) {
   async function handleCheckout() {
     try {
       const response = await axios.post(
@@ -213,7 +220,6 @@ function Cart({ setCartActive }) {
 }
 
 //Function should send a post request with the name, price,
-
 function CartItem({ item }) {
   const { cartItems, removeFromCart, setCartItems } = useContext(CartContext);
 
