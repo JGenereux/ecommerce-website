@@ -37,24 +37,10 @@ router.route("/substr/:name").get(async (req, res) => {
 //add info to database
 router.route("/add").post(async (req, res) => {
   //need to create an object with all properties in inventory.models schema
-  const itemName = req.body.itemName;
-  const category = req.body.category;
-  const price = Number(req.body.price);
-  const quantity = Number(req.body.quantity);
-  const imageUrl = req.body.imageUrl;
-  const description = req.body.description;
-
-  const newItem = new Inventory({
-    itemName,
-    category,
-    price,
-    quantity,
-    imageUrl,
-    description,
-  });
 
   //Saves item to database
   try {
+    const newItem = new Inventory(req.body);
     await newItem.save();
     res.json("User Added");
   } catch (err) {

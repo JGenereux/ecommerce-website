@@ -41,7 +41,6 @@ function Header() {
         Discover the Heart of Shopping at Heartland Shoppes – Where Quality
         Meets Community.
       </p>
-
       <Link to="/shop" className="shopbtn-link">
         Shop Now
       </Link>

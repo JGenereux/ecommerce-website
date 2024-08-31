@@ -14,6 +14,7 @@ export default function ItemPage() {
   );
 }
 
+//Purpose of this component is to display a single page for a single item
 function Item() {
   const { name } = useParams();
 
@@ -22,18 +23,33 @@ function Item() {
   const [itemName, setItemName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+
+  const [colors, setColors] = useState([]);
+  const [sizes, setSizes] = useState([]);
   const [seen, setSeen] = useState(false); //state for checking if item has been added to the cart
 
   const { cartItems, addToCart, removeFromCart, updateItemQuantity } =
     useContext(CartContext);
 
+  //Function handles setting all information about the item
+  //param is the response sent from the database
   function handleData(info) {
     setUrl(info["imageUrl"]);
     setItemName(info["itemName"]);
     setPrice(info["price"]);
     setDescription(info["description"]);
+    setCategory(info["category"]);
+    console.log(info);
+    if (info["category"] === "T-Shirts") {
+      setColors(info["colors"]);
+      setSizes(info["sizes"]);
+    }
   }
 
+  //Purpose - gets all info for a specific item, which is then
+  //          called in handleData which sets the item's states
+  //          with it's appropiate info
   useEffect(() => {
     async function fetchItemData() {
       try {
@@ -48,9 +64,11 @@ function Item() {
     fetchItemData(name);
   }, [name]);
 
+  //Purpose - Synchronizes the quantity displayed on the item page with the
+  //          quantity that is kept in the cart
   useEffect(() => {
-    // Synchronize item page quantity with cart
     const foundItem = cartItems.find((item) => item.name === itemName);
+    //If item is in the cart already, match quantity with what is in cart.
     if (foundItem) {
       setQuantity(foundItem.quantity);
       setSeen(true);
@@ -61,7 +79,7 @@ function Item() {
   }, [cartItems, itemName, seen]);
 
   function handleAddToCart() {
-    //don't add nothing!
+    //don't add anything if it has no quantity!
     if (quantity === 0) return;
 
     //CHECK IF ITEM EXISTS IN THE CART ALREADY, DONT WANT DUPLICATES
@@ -72,9 +90,6 @@ function Item() {
     addToCart(item);
   }
 
-  //want the quantity to be 0 if there is no item otherwise display the
-  //item quantity
-
   return (
     <div className="singleItem-container">
       {url.length > 0 ? (
@@ -83,25 +98,38 @@ function Item() {
           <div className="itemInfo-text">
             <h2 className="itemInfo-title">{itemName}</h2>
             <h3>${price}.00</h3>
-            <div className="select-itemsize">
-              <label htmlFor="sizes">Sizes: </label>
-              <br />
-              <select name="sizes" className="size-label">
-                <option value="Small">Small</option>
-                <option value="Medium">Medium</option>
-                <option value="Large">Large</option>
-              </select>
-            </div>
+            {/* Only render options for categories that have them */}
+            {category === "T-Shirts" && (
+              <>
+                {colors.length > 0 && (
+                  <div className="select-itemcolor">
+                    <label htmlFor="colors">Colors: </label>
+                    <br />
+                    <select name="colors" className="size-label">
+                      {colors?.map((color, index) => (
+                        <option value={color} key={index}>
+                          {color}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
 
-            <div className="select-itemcolor">
-              <label htmlFor="colors">Colors: </label>
-              <br />
-              <select name="colors" className="size-label">
-                <option value="White">White</option>
-                <option value="Black">Black</option>
-                <option value="Red">Red</option>
-              </select>
-            </div>
+                {sizes.length > 0 && (
+                  <div className="select-itemsize">
+                    <label htmlFor="sizes">Sizes: </label>
+                    <br />
+                    <select name="sizes" className="size-label">
+                      {sizes?.map((size, index) => (
+                        <option value={size} key={index}>
+                          {size}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+              </>
+            )}
             <div className="additem-button">
               {/*needs to reset to 0 when removing from cart */}
               <button

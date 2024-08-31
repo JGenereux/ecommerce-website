@@ -10,6 +10,8 @@ const inventorySchema = new Schema(
     quantity: { type: Number, required: true },
     imageUrl: { type: String, required: true },
     description: { type: String, required: true },
+    colors: { type: [String] },
+    sizes: { type: [String] },
   },
   {
     timestamps: true,
