@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "./CartContext";
+import { useAuth } from "../login/authcontext";
 
 export default function NavBar() {
   const [reqItem, setReqItem] = useState("");
@@ -39,6 +40,7 @@ function MainBar({
 }) {
   const { cartItems } = useContext(CartContext);
   const [cartActive, setCartActive] = useState(false);
+  const { user } = useAuth();
   return (
     <div className="navbar">
       <ul>
@@ -76,12 +78,21 @@ function MainBar({
           />
         </li>
         <div className="spec-container">
-          <li>
-            <Link to="/inventory" className="text-link">
-              Inventory
-            </Link>
-          </li>
+          {user.role === "admin" && (
+            <li>
+              <Link to="/inventory" className="text-link">
+                Inventory
+              </Link>
+            </li>
+          )}
         </div>
+        <li>
+          {(user.role === undefined || "") && (
+            <Link to="/login" className="text-link login-link">
+              Login
+            </Link>
+          )}
+        </li>
         <li className={!cartActive ? "cart-container" : "active-cart"}>
           <div>
             {!cartActive ? (

@@ -140,9 +140,11 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 150px;
+  height: 135px;
+  margin-top: 25px;
   width: 100%;
-  background-color: rgb(142, 171, 196);
+  color: rgb(239, 233, 233);
+  background-color: rgb(46, 46, 46);
   font-family: customFont;
 }
 
@@ -167,6 +169,7 @@ ul {
   background-color: black;
   margin-right: 15px;
 }
+
 /*CSS for shopping cart*/
 .cart-container {
   margin-left: auto;
@@ -689,10 +692,9 @@ ul {
 .display-singleItem {
   display: flex;
   flex-direction: row;
-  height: 800px;
+
   width: 800px;
   padding-top: 5%;
-  padding-left: 22%;
 }
 
 .display-singleItem img {
@@ -703,20 +705,17 @@ ul {
   display: flex;
   flex-direction: column;
   padding-left: 35px;
-}
-
-.itemInfo-text p {
-  font-family: monospace;
-  font-size: 14px;
+  width: 320px;
 }
 
 .itemInfo-text h3 {
-  font-size: 22px;
+  font-size: 26px;
 }
 
 .itemInfo-title {
   margin: 0px;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: customFont;
+  font-size: 24px;
 }
 
 .select-itemsize,
@@ -731,23 +730,38 @@ ul {
   text-align: center;
 }
 
+.quantity-text {
+  margin-top: 180px;
+  color: black;
+  text-align: center;
+  padding-bottom: 10px;
+  font-family: itemFont;
+  font-size: 18px;
+}
+
 .additem-button {
+  color: white;
+  font-weight: bold;
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left: 70px;
+  align-self: center;
+  border-radius: 20px;
   padding: 5px;
-  background-color: wheat;
-  width: 125px;
+  background-color: rgb(0, 0, 0);
+  width: 115px;
   height: 40px;
   box-sizing: border-box;
 }
 
 .additem-button button {
+  color: white;
+  font-weight: bold;
+  border-radius: 20px;
   height: 40px;
   width: 40px;
   border: none;
-  background-color: wheat;
+  background-color: rgb(0, 0, 0);
   margin: 0;
   font-size: 22px;
   cursor: pointer;
@@ -757,16 +771,32 @@ ul {
   margin: 20px;
 }
 
+.item-quantity {
+  color: rgb(255, 255, 255);
+}
+
 .addtocart-btn {
+  align-self: center;
   height: 40px;
   width: 175px;
+  color: white;
+  font-family: btnFont;
+  font-size: 16px;
+  cursor: pointer;
   border-radius: 15px;
-  background: rgb(249, 149, 55);
-  margin: 20px 0px 0px 45px;
+  background: rgb(0, 0, 0);
+  margin: 30px 0px 0px 0px;
 }
 
 .item-descriptionTitle {
-  padding-top: 25px;
+  padding-top: 0px;
+  font-family: btnFont;
+}
+
+.item-description {
+  font-family: itemFont;
+  font-weight: 1000;
+  font-size: 16px;
 }
 
 .category-options {
@@ -837,4 +867,93 @@ ul {
 .button-30:active {
   box-shadow: #d6d6e7 0 3px 7px inset;
   transform: translateY(2px);
+}
+
+/* Login Page Container */
+.loginpage-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f2f5;
+}
+
+/* Login Form Container */
+.login-formcontainer {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  /* The height and width are already set inline, but you can override or adjust them here if needed */
+}
+
+/* Login Heading */
+.login-heading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #333;
+  font-family: customFont;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+/* Form Input Group */
+.form-inputgroup {
+  font-family: btnFont;
+  margin-bottom: 20px;
+}
+
+/* Form Inputs */
+.form-inputgroup input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  /* The height is already set inline, but you can override it here if needed */
+}
+
+.logintextlabel {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 1000;
+  color: #333;
+}
+
+/* Login Button */
+.loginbtn {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #1877f2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: btnFont;
+}
+
+.loginbtn:hover {
+  background-color: #166fe5;
+}
+
+/* Signup Text */
+.signupText {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #333;
+}
+
+.signupText a {
+  color: #1877f2;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signupText a:hover {
+  text-decoration: underline;
 }

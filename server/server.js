@@ -12,8 +12,8 @@ app.use(cors()); //allows for cross origin resource sharing between servers diff
 app.use(express.json()); //allows for parsing of jsons.
 
 //connect to database
-const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const url = process.env.ATLAS_URI;
+mongoose.connect(url); // { useNewUrlParser: true, useUnifiedTopology: true } dont need but might need it idk
 
 const connection = mongoose.connection;
 connection.once("open", () => {
@@ -24,10 +24,14 @@ connection.once("open", () => {
 const inventoryRouter = require("./routes/inventory");
 //import database for images
 const imageRouter = require("./routes/images");
+//import catabase for users
+const usersRouter = require("./routes/userdb");
 //import stripe api payment route
 const stripeRouter = require("./routes/checkout");
+
 app.use("/inventory", inventoryRouter);
 app.use("/image", imageRouter);
+app.use("/users", usersRouter);
 app.use("/checkout", stripeRouter);
 
 app.listen(PORT, () => {

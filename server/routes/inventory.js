@@ -36,14 +36,24 @@ router.route("/substr/:name").get(async (req, res) => {
 
 //add info to database
 router.route("/add").post(async (req, res) => {
-  //need to create an object with all properties in inventory.models schema
-
-  //Saves item to database
   try {
+    //need to create an object with all properties in inventory.models schema
+    //Saves item to database
     const newItem = new Inventory(req.body);
     await newItem.save();
     res.json("User Added");
   } catch (err) {
+    res.status(400).json("Error: " + err);
+  }
+});
+
+//Route to update a specific item in database
+router.route("/delete").post(async (req, res) => {
+  try {
+    await Inventory.deleteOne({ itemName: req.body.itemName });
+    res.json("Item Removed Successfully");
+  } catch (err) {
+    console.log(err);
     res.status(400).json("Error: " + err);
   }
 });

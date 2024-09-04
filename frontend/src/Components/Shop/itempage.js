@@ -9,12 +9,19 @@ export default function ItemPage() {
   return (
     <div>
       <Navbar />
-      <Item />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Item />
+      </div>
     </div>
   );
 }
 
-//Purpose of this component is to display a single page for a single item
+//Display a page for a single item
 function Item() {
   const { name } = useParams();
 
@@ -32,24 +39,23 @@ function Item() {
   const { cartItems, addToCart, removeFromCart, updateItemQuantity } =
     useContext(CartContext);
 
-  //Function handles setting all information about the item
-  //param is the response sent from the database
+  // Function handles setting all information about the item
+  // param is the response sent from the database
   function handleData(info) {
     setUrl(info["imageUrl"]);
     setItemName(info["itemName"]);
     setPrice(info["price"]);
     setDescription(info["description"]);
     setCategory(info["category"]);
-    console.log(info);
     if (info["category"] === "T-Shirts") {
       setColors(info["colors"]);
       setSizes(info["sizes"]);
     }
   }
 
-  //Purpose - gets all info for a specific item, which is then
-  //          called in handleData which sets the item's states
-  //          with it's appropiate info
+  // gets all info for a specific item, which is then
+  // called in handleData which sets the item's states
+  // with it's appropiate info
   useEffect(() => {
     async function fetchItemData() {
       try {
@@ -64,8 +70,8 @@ function Item() {
     fetchItemData(name);
   }, [name]);
 
-  //Purpose - Synchronizes the quantity displayed on the item page with the
-  //          quantity that is kept in the cart
+  // Synchronizes the quantity displayed on the item page with the
+  // quantity that is kept in the cart
   useEffect(() => {
     const foundItem = cartItems.find((item) => item.name === itemName);
     //If item is in the cart already, match quantity with what is in cart.
@@ -130,6 +136,8 @@ function Item() {
                 )}
               </>
             )}
+            {/*Make classname optional for quantity and adjust margin from the top by that*/}
+            <label className="quantity-text">Quantity</label>
             <div className="additem-button">
               {/*needs to reset to 0 when removing from cart */}
               <button
@@ -147,7 +155,7 @@ function Item() {
                 -
               </button>
               {/* To synchronize quality from itempage and cart */}
-              <p>{quantity}</p>
+              <p className="item-quantity">{quantity}</p>
               <button
                 onClick={() => {
                   const newQuantity = quantity >= 99 ? 99 : quantity + 1;

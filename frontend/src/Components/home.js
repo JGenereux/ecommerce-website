@@ -4,13 +4,20 @@ import iglogo from "../Images/iglogo.png";
 import navbarlogo from "../Images/navbarLogo.png";
 
 import Navbar from "./navbar/navbar";
-import ImageSlider from "./about";
 import axios from "axios";
 import "../styles/home.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useAuth } from "./login/authcontext";
 
 export default function Home() {
+  /*
+  const { user } = useAuth();
+  //check user role on mount
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+  */
   return (
     <div>
       <Navbar />
@@ -167,7 +174,9 @@ function Description() {
           and supporters of these events. Heartland Shoppes applauds all
           participants in these noble initiatives.
         </p>
-        <p style={{ marginBottom: 8 }}>Want A Custom Product?</p>
+        <p style={{ marginBottom: "8px", marginTop: "24px" }}>
+          Want A Custom Product?
+        </p>
         <Link to="/contact" className="item-links">
           <p>Request Product</p>
         </Link>
