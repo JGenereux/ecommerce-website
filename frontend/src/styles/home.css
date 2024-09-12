@@ -756,7 +756,6 @@ ul {
 .display-singleItem {
   display: flex;
   flex-direction: row;
-
   width: 800px;
   padding-top: 5%;
 }
@@ -782,9 +781,8 @@ ul {
   font-size: 24px;
 }
 
-.select-itemsize,
 .select-itemcolor {
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 
 .size-label {
@@ -794,8 +792,17 @@ ul {
   text-align: center;
 }
 
+.itemOptions-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 210px;
+}
+
+.itemChoices {
+  margin-top: 115px;
+}
+
 .quantity-text {
-  margin-top: 180px;
   color: black;
   text-align: center;
   padding-bottom: 10px;
@@ -853,16 +860,20 @@ ul {
 }
 
 .item-descriptionTitle {
-  padding-top: 0px;
+  padding-top: 10px;
   font-family: btnFont;
+  margin-bottom: 5px;
 }
 
 .item-description {
+  padding-top: 0px;
+  margin-top: 0px;
   font-family: itemFont;
   font-weight: 1000;
   font-size: 16px;
 }
 
+/*CSS for inventory page*/
 .category-options {
   display: flex;
   flex-direction: column;

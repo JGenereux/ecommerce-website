@@ -55,7 +55,7 @@ function Item() {
 
   // gets all info for a specific item, which is then
   // called in handleData which sets the item's states
-  // with it's appropiate info
+  // with the appropiate info
   useEffect(() => {
     async function fetchItemData() {
       try {
@@ -100,7 +100,10 @@ function Item() {
     <div className="singleItem-container">
       {url.length > 0 ? (
         <div className="display-singleItem">
-          <img src={url} alt={itemName}></img>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <img src={url} alt={itemName}></img>
+            <p></p>
+          </div>
           <div className="itemInfo-text">
             <h2 className="itemInfo-title">{itemName}</h2>
             <h3>${price}.00</h3>
@@ -136,41 +139,48 @@ function Item() {
                 )}
               </>
             )}
-            {/*Make classname optional for quantity and adjust margin from the top by that*/}
-            <label className="quantity-text">Quantity</label>
-            <div className="additem-button">
-              {/*needs to reset to 0 when removing from cart */}
-              <button
-                onClick={() => {
-                  const newQuantity = quantity >= 1 ? quantity - 1 : 0;
-                  setQuantity(newQuantity);
+            <div
+              className={
+                (colors.length > 0 || sizes.length) > 0
+                  ? "itemOptions-container itemChoices"
+                  : "itemOptions-container"
+              }
+            >
+              <label className="quantity-text">Quantity</label>
+              <div className="additem-button">
+                {/*needs to reset to 0 when removing from cart */}
+                <button
+                  onClick={() => {
+                    const newQuantity = quantity >= 1 ? quantity - 1 : 0;
+                    setQuantity(newQuantity);
 
-                  if (newQuantity === 0) {
-                    removeFromCart(itemName);
-                  } else {
+                    if (newQuantity === 0) {
+                      removeFromCart(itemName);
+                    } else {
+                      updateItemQuantity(itemName, newQuantity);
+                    }
+                  }}
+                >
+                  -
+                </button>
+                {/* To synchronize quality from itempage and cart */}
+                <p className="item-quantity">{quantity}</p>
+                <button
+                  onClick={() => {
+                    const newQuantity = quantity >= 99 ? 99 : quantity + 1;
+                    setQuantity(newQuantity);
                     updateItemQuantity(itemName, newQuantity);
-                  }
-                }}
-              >
-                -
+                  }}
+                >
+                  +
+                </button>
+              </div>
+              <button className="addtocart-btn" onClick={handleAddToCart}>
+                Add To Cart
               </button>
-              {/* To synchronize quality from itempage and cart */}
-              <p className="item-quantity">{quantity}</p>
-              <button
-                onClick={() => {
-                  const newQuantity = quantity >= 99 ? 99 : quantity + 1;
-                  setQuantity(newQuantity);
-                  updateItemQuantity(itemName, newQuantity);
-                }}
-              >
-                +
-              </button>
+              <h2 className="item-descriptionTitle">About this item: </h2>
+              <p className="item-description">{description}</p>
             </div>
-            <button className="addtocart-btn" onClick={handleAddToCart}>
-              Add To Cart
-            </button>
-            <h2 className="item-descriptionTitle">About this item: </h2>
-            <p className="item-description">{description}</p>
           </div>
         </div>
       ) : (
