@@ -4,6 +4,8 @@ import "../../styles/home.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import shopLogo from "../../Images/navbarLogo.png";
+
 export default function LoginPage() {
   return (
     <div className="loginpage-container">
@@ -15,6 +17,18 @@ export default function LoginPage() {
 function LoginUI() {
   return (
     <div className="login-formcontainer">
+      <img
+        src={shopLogo}
+        alt="Heartland Shoppes Logo"
+        style={{
+          height: "80px",
+          width: "80px",
+          border: "2px dashed black",
+          alignSelf: "center",
+          borderRadius: "45px",
+        }}
+        className="login-image"
+      ></img>
       <h2 className="login-heading">Login</h2>
       <LoginForm />
     </div>
@@ -81,6 +95,9 @@ function LoginForm() {
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-inputgroup">
+        <label htmlFor="email" className="logintextlabel">
+          Email address
+        </label>
         <input
           type="text"
           value={email}
@@ -90,6 +107,9 @@ function LoginForm() {
         ></input>
       </div>
       <div className="form-inputgroup">
+        <label htmlFor="password" className="logintextlabel">
+          Password
+        </label>
         <input
           type="password"
           value={password}
@@ -102,7 +122,7 @@ function LoginForm() {
         Login
       </button>
       <p className="signupText">
-        No account? <Link to="/signup">Signup</Link>
+        No account? <Link to="/signup"> Signup</Link>
       </p>
     </form>
   );

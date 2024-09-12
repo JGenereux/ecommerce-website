@@ -181,17 +181,15 @@ ul {
   margin-top: 18px;
 }
 
-.cart-container p {
-  border: 2px solid black;
+.numCartItems-display {
   border-radius: 20px;
   float: right;
   padding: 5px;
-  margin-left: 10px;
+  padding-top: 6px;
+  margin-left: 5px;
   text-align: center;
-  width: 20px;
   font-weight: bold;
-  color: black;
-  background-color: rgb(255, 63, 63);
+  color: red;
 }
 
 .active-cart {
@@ -370,7 +368,7 @@ ul {
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 30%;
+  bottom: 25%;
   height: 60px;
   width: 140px;
   border-radius: 30px;
@@ -622,20 +620,50 @@ ul {
 .inventory-header {
   padding-left: 3%;
   font-size: 30px;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: customFont;
 }
 
+.inventory-guide {
+  display: flex;
+  flex-direction: column;
+  margin-left: 3rem;
+}
+
+.inventory-guide h2 {
+  font-family: customFont;
+}
+
+.inventory-guide p {
+  margin-top: 0px;
+  font-family: itemFont;
+  width: 84%;
+}
+/*CSS for category section on inventory page*/
+
+.category-btns {
+  height: 45px;
+  width: 120px;
+  margin-left: 10px;
+  border: 3px solid black;
+  border-radius: 10px;
+  font-size: 14px;
+  color: black;
+  font-family: btnFont;
+  box-shadow: 3px 3px 0px rgb(3, 3, 5);
+}
+
+/*CSS for inventory form */
 .add-form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.add-form input {
+.add-form-input {
   height: 30px;
   width: 185px;
   margin-top: 30px;
+  font-family: btnFont;
 }
 
 .add-form button {
@@ -648,22 +676,39 @@ ul {
   border-radius: 10px;
   border-style: ridge;
   width: 350px;
-  min-height: 500px;
   max-height: fit-content;
-  margin-top: 8%;
-  margin-left: 38%;
-  box-shadow: 7px 7px 3px lightcoral;
+  margin-top: 2%;
+  margin-bottom: 10%;
+  box-shadow: 5px 5px 8px rgb(3, 3, 5);
 }
 
 .inventory-text {
   border: 1px solid black;
   border-radius: 5px;
   padding-left: 10px;
+  max-height: 100px;
+  max-width: 300px;
 }
 
+.inventory-textArea {
+  margin-top: 30px;
+  min-width: 300px;
+  min-height: 70px;
+  max-height: 150px;
+  max-width: 300px;
+  font-family: btnFont;
+  font-size: 14px;
+}
+
+.image-uploadcont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .inventory-uplFile {
   cursor: pointer;
   margin-top: 35px;
+  margin-left: 70px;
 }
 
 .inventory-checkboxes {
@@ -679,6 +724,25 @@ ul {
 
 .inventory-form .inventory-submit {
   margin-top: 0px;
+}
+
+/*CSS for login link in navbar*/
+.login-link {
+  position: absolute;
+  top: 1.7rem;
+  padding-right: 0.5rem;
+  right: 6%;
+  text-decoration: none;
+  color: black;
+}
+
+.modlogin-link {
+  position: absolute;
+  top: 2rem;
+  padding-right: 0rem;
+  right: 7.5%;
+  text-decoration: none;
+  color: black;
 }
 
 /* CSS for displaying product*/
@@ -802,12 +866,15 @@ ul {
 .category-options {
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
+  gap: 5px;
 }
 
 .category-options input {
   height: 20px;
   width: 150px;
   border: 2px solid black;
+  font-family: btnFont;
 }
 
 /* CSS for inventory form button */
@@ -823,7 +890,7 @@ ul {
     rgba(45, 35, 66, 0.3) 0 7px 13px -3px,
     #d6d6e7 0 -3px 0 inset;
   box-sizing: border-box;
-  color: #36395a;
+  color: black;
   cursor: pointer;
   display: inline-flex;
   font-family: "JetBrains Mono", monospace;
@@ -880,6 +947,8 @@ ul {
 
 /* Login Form Container */
 .login-formcontainer {
+  display: flex;
+  flex-direction: column;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -944,6 +1013,8 @@ ul {
 /* Signup Text */
 .signupText {
   margin-top: 20px;
+  font-family: itemFont;
+  font-weight: bold;
   font-size: 14px;
   color: #333;
 }

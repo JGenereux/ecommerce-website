@@ -78,36 +78,53 @@ function MainBar({
           />
         </li>
         <div className="spec-container">
-          {user.role === "admin" && (
+          {
+            //if user is logged in as admin allow access to modify inventory
+            //user.role === "" && (
             <li>
               <Link to="/inventory" className="text-link">
                 Inventory
               </Link>
             </li>
-          )}
+          }
         </div>
         <li>
-          {(user.role === undefined || "") && (
-            <Link to="/login" className="text-link login-link">
-              Login
-            </Link>
-          )}
+          {
+            //If the user hasn't logged in yet display the login button.
+            (user.role === undefined || "") && (
+              <Link
+                to="/login"
+                className={
+                  cartItems.length > 0 ? "modlogin-link" : "login-link"
+                }
+              >
+                Login
+              </Link>
+            )
+          }
         </li>
         <li className={!cartActive ? "cart-container" : "active-cart"}>
           <div>
-            {!cartActive ? (
-              <div>
-                <button
-                  className={cartItems.length > 0 ? "cart-items" : ""}
-                  onClick={() => setCartActive(true)}
-                >
-                  🛒
-                </button>
-                {cartItems.length > 0 && <p>{cartItems.length}</p>}
-              </div>
-            ) : (
-              <Cart setCartActive={setCartActive} cartItems={cartItems} />
-            )}
+            {
+              //Condition based on if the cart is open, if not the basic image is displayed
+              //if it is then the cart component is displayed with the current items the user
+              //has selected
+              !cartActive ? (
+                <div>
+                  <button
+                    className={cartItems.length > 0 ? "cart-items" : ""}
+                    onClick={() => setCartActive(true)}
+                  >
+                    🛒
+                  </button>
+                  {cartItems.length > 0 && (
+                    <p className="numCartItems-display">{cartItems.length}</p>
+                  )}
+                </div>
+              ) : (
+                <Cart setCartActive={setCartActive} cartItems={cartItems} />
+              )
+            }
           </div>
         </li>
       </ul>

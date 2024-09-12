@@ -8,7 +8,6 @@ export default function About() {
   return (
     <div>
       <Navbar />
-      <ImageSlider />
     </div>
   );
 }

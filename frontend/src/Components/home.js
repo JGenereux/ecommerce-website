@@ -8,7 +8,6 @@ import axios from "axios";
 import "../styles/home.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useAuth } from "./login/authcontext";
 
 export default function Home() {
   /*

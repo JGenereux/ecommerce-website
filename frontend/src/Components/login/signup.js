@@ -48,12 +48,17 @@ function SignupForm() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const userExists = await checkEmail(email);
-
+    //check if email is valid
+    if (!email.includes("@") || !email.includes(".")) {
+      alert("Make sure email is valid");
+      return;
+    }
     if (password.length < 8) {
       alert("Make sure password is over 8 characters");
       return;
     }
+
+    const userExists = await checkEmail(email);
 
     if (userExists) {
       alert("User already exists");
@@ -100,7 +105,7 @@ function SignupForm() {
           </label>
           <input
             id="password"
-            type="text"
+            type="password"
             value={password}
             placeholder="Enter your password"
             onChange={(e) => setPassword(e.target.value)}
