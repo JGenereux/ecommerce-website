@@ -102,6 +102,7 @@ function Item() {
         <div className="display-singleItem">
           <div style={{ display: "flex", flexDirection: "column" }}>
             <img src={url} alt={itemName}></img>
+            <DisplayCreateReview itemName={itemName} />
             <Reviews itemName={itemName} />
           </div>
           <div className="itemInfo-text">
@@ -190,16 +191,103 @@ function Item() {
   );
 }
 
+//Display's a button that when clicked allows a user to create a review
+function DisplayCreateReview({ itemName }) {
+  const [isCreateOpen, setCreateOpen] = useState(false);
+  return (
+    <div>
+      <div className="createreview-container">
+        <p>Add review</p>
+        <button
+          className="createreview-btn"
+          onClick={() => setCreateOpen(!isCreateOpen)}
+        >
+          {isCreateOpen ? "-" : "+"}
+        </button>
+      </div>
+      {isCreateOpen && (
+        <CreateReview itemName={itemName} setCreateOpen={setCreateOpen} />
+      )}
+    </div>
+  );
+}
+
+//need to get item name
+function CreateReview({ itemName, setCreateOpen }) {
+  const [rating, setRating] = useState(1);
+  const [userName, setUserName] = useState("");
+  const [comment, setComment] = useState("");
+
+  //Creates a new item which is added to the review database
+  async function handleUploadReview(e) {
+    e.preventDefault(); //prevent form from causing page reload on submit
+
+    //in case user doesn't enter a name.
+    //state isn't updated because it cannot be guaranteed the state will update as the func runs
+    let name = userName;
+    if (name === "") {
+      name = "anonymous";
+    }
+
+    const newReview = {
+      itemName: itemName,
+      userName: name,
+      rating: rating,
+      comment: comment,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/reviews/create",
+        newReview
+      );
+      //no response is sent. if review is uploaded successfully then this section will be reached
+      handleResetReview();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleResetReview() {
+    setCreateOpen(false);
+    setUserName("");
+    setRating(1);
+    setComment("");
+  }
+
+  return (
+    <div className="createreview-inputcontainer">
+      <form onSubmit={(e) => handleUploadReview(e)}>
+        <div className="reviewinput-box">
+          <div className="createreview-header">
+            <input
+              type="text"
+              placeholder="Name (not required)"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+            ></input>
+            <Rating
+              currentRating={rating}
+              onRatingChange={setRating}
+              currClassName="createRating"
+            />
+            <p>{rating}</p>
+            <button type="submit">Add Review</button>
+          </div>
+          <textarea
+            placeholder="Feedback"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          ></textarea>
+        </div>
+      </form>
+    </div>
+  );
+}
+
 //Displays all the reviews for a single item
 function Reviews({ itemName }) {
-  const [reviews, setReviews] = useState([
-    {
-      itemName: "20 oz Cool Cup",
-      userName: "Carlos Borat",
-      rating: 4,
-      comment: "This is such a cool item will consider purchasing again!",
-    },
-  ]);
+  const [reviews, setReviews] = useState([{}]);
   //Fetch all reviews for a single item
   useEffect(() => {
     async function fetchReviews() {
@@ -207,7 +295,7 @@ function Reviews({ itemName }) {
         const response = await axios.get(
           `http://localhost:5000/reviews/${itemName}`
         );
-        //setReviews(response.data);
+        setReviews(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -225,7 +313,7 @@ function Reviews({ itemName }) {
 }
 
 function SingleReview({ review }) {
-  const [rating, setRating] = useState(review["rating"]);
+  const rating = review["rating"];
   const userName = review["userName"];
   const reviewdesc = review["comment"];
   const itemName = review["itemName"];
@@ -236,7 +324,11 @@ function SingleReview({ review }) {
         <p className="singleReview-username">{userName}</p>
         <div className="starRatings-container">
           <p>{rating}</p>
-          <Rating currentRating={rating} onRatingChange={setRating} />
+          <Rating
+            currentRating={rating}
+            onRatingChange="none"
+            currClassName=""
+          />
         </div>
       </div>
       <p className="singleReview-description">{reviewdesc}</p>
@@ -246,14 +338,19 @@ function SingleReview({ review }) {
 }
 
 //Renders the current rating with 5 stars that are highlighted from 1 to rating.
-function Rating({ currentRating, onRatingChange }) {
+function Rating({ currentRating, onRatingChange, currClassName }) {
   return (
-    <div>
+    <div className={currClassName === "createRating" ? "createRating" : ""}>
       {[1, 2, 3, 4, 5].map((star) => (
         <Star
           key={star}
           filled={star <= currentRating}
-          onClick={() => onRatingChange(star)}
+          //allows for disabling changing the ratings of a posted review
+          onClick={() => {
+            if (onRatingChange !== "none") {
+              onRatingChange(star);
+            }
+          }}
         />
       ))}
     </div>

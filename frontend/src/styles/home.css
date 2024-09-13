@@ -757,6 +757,64 @@ ul {
   padding-top: 5%;
 }
 
+.createreview-container {
+  display: flex;
+  flex-direction: row;
+  font-family: itemFont;
+  font-weight: bold;
+}
+.createreview-btn {
+  margin: 15px 10px 10px 10px;
+  height: 25px;
+  width: 25px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.createreview-inputcontainer {
+  border: 2px solid black;
+  height: 150px;
+  width: 460px;
+}
+
+.reviewinput-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.createreview-inputcontainer form input {
+  margin: 10px 0px 0px 10px;
+  height: 20px;
+  width: 150px;
+}
+
+.createreview-inputcontainer form textarea {
+  height: 80px;
+  width: 400px;
+
+  margin: 10px 0px 0px 10px;
+  resize: none;
+}
+
+.createreview-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.createreview-header p,
+.createRating {
+  margin: 12px 0px 0px 12px;
+}
+
+.createreview-header button {
+  height: 30px;
+  width: 90px;
+  border-radius: 10px;
+  font-family: btnFont;
+  margin: 8px 15px 0px auto;
+}
+
 .display-singleItem img {
   height: 500px;
 }
