@@ -26,6 +26,8 @@ const inventoryRouter = require("./routes/inventory");
 const imageRouter = require("./routes/images");
 //import catabase for users
 const usersRouter = require("./routes/userdb");
+//import database for reviews
+const reviewsRouter = require("./routes/reviews");
 //import stripe api payment route
 const stripeRouter = require("./routes/checkout");
 
@@ -33,6 +35,7 @@ app.use("/inventory", inventoryRouter);
 app.use("/image", imageRouter);
 app.use("/users", usersRouter);
 app.use("/checkout", stripeRouter);
+app.use("/reviews", reviewsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started at port ${PORT}`);

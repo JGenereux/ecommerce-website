@@ -16,7 +16,7 @@ router.route("/create").post(async (req, res) => {
 router.route("/:itemname").get(async (req, res) => {
   try {
     //finds all items in the database that belong to that specific item
-    const reviews = Reviews.find({ itemName: req.params.itemname });
+    const reviews = await Reviews.find({ itemName: req.params.itemname });
     res.json(reviews);
   } catch (error) {
     res.status(400).json("Error: " + error);
@@ -39,3 +39,5 @@ router.route("/remove/:username").delete(async (req, res) => {
     res.status(400).json("Error: " + error);
   }
 });
+
+module.exports = router;

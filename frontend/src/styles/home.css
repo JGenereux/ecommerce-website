@@ -746,9 +746,6 @@ ul {
 }
 
 /* CSS for displaying product*/
-.singleItem-container {
-  background-color: aliceblue;
-}
 
 .singleItem-container label {
   padding: 5px;
@@ -871,6 +868,51 @@ ul {
   font-family: itemFont;
   font-weight: 1000;
   font-size: 16px;
+}
+
+/*CSS for reviews*/
+.singleReview {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  height: 130px;
+  max-height: fit-content;
+  width: 460px;
+  border: 2px solid black;
+  margin-top: 20px;
+}
+
+.singleReview-container {
+  display: flex;
+  flex-direction: row;
+}
+.singleReview-username {
+  margin: 15px 0px 0px 25px;
+  font-weight: bold;
+  font-family: customFont;
+}
+
+.singleReview-description {
+  font-weight: bold;
+  font-family: itemFont;
+  margin: 5px 5px 5px 25px;
+}
+
+.singleReview-itemName {
+  font-weight: bold;
+  font-family: itemFont;
+  margin: 5px 5px 5px 25px;
+}
+
+.starRatings-container {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 5px 5px auto;
+}
+
+.starRatings-container p {
+  font-size: 18px;
+  margin: 0px 5px 0px 0px;
 }
 
 /*CSS for inventory page*/

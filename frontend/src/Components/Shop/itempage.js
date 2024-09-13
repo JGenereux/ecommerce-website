@@ -67,7 +67,7 @@ function Item() {
         alert(`Error fetching item data, contact admin. ERROR: ${error}`);
       }
     }
-    fetchItemData(name);
+    fetchItemData();
   }, [name]);
 
   // Synchronizes the quantity displayed on the item page with the
@@ -102,7 +102,7 @@ function Item() {
         <div className="display-singleItem">
           <div style={{ display: "flex", flexDirection: "column" }}>
             <img src={url} alt={itemName}></img>
-            <p></p>
+            <Reviews itemName={itemName} />
           </div>
           <div className="itemInfo-text">
             <h2 className="itemInfo-title">{itemName}</h2>
@@ -187,6 +187,99 @@ function Item() {
         <Loading />
       )}
     </div>
+  );
+}
+
+//Displays all the reviews for a single item
+function Reviews({ itemName }) {
+  const [reviews, setReviews] = useState([
+    {
+      itemName: "20 oz Cool Cup",
+      userName: "Carlos Borat",
+      rating: 4,
+      comment: "This is such a cool item will consider purchasing again!",
+    },
+  ]);
+  //Fetch all reviews for a single item
+  useEffect(() => {
+    async function fetchReviews() {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/reviews/${itemName}`
+        );
+        //setReviews(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchReviews();
+  }, [itemName]);
+
+  return (
+    <div>
+      {reviews?.map((review, i) => (
+        <SingleReview review={review} key={i + 1} />
+      ))}
+    </div>
+  );
+}
+
+function SingleReview({ review }) {
+  const [rating, setRating] = useState(review["rating"]);
+  const userName = review["userName"];
+  const reviewdesc = review["comment"];
+  const itemName = review["itemName"];
+
+  return (
+    <div className="singleReview">
+      <div className="singleReview-container">
+        <p className="singleReview-username">{userName}</p>
+        <div className="starRatings-container">
+          <p>{rating}</p>
+          <Rating currentRating={rating} onRatingChange={setRating} />
+        </div>
+      </div>
+      <p className="singleReview-description">{reviewdesc}</p>
+      <p className="singleReview-itemName">Item: {itemName}</p>
+    </div>
+  );
+}
+
+//Renders the current rating with 5 stars that are highlighted from 1 to rating.
+function Rating({ currentRating, onRatingChange }) {
+  return (
+    <div>
+      {[1, 2, 3, 4, 5].map((star) => (
+        <Star
+          key={star}
+          filled={star <= currentRating}
+          onClick={() => onRatingChange(star)}
+        />
+      ))}
+    </div>
+  );
+}
+
+//Renders a single star that is filled based on the value of filled.
+function Star({ filled, onClick }) {
+  const starPoints =
+    "M9,2 L11,7 L16,7 L12.5,10 L14,15 L9,12.5 L4,15 L5.5,10 L2,7 L7,7 Z";
+
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      onClick={onClick}
+      style={{ cursor: "pointer" }}
+    >
+      <path
+        d={starPoints}
+        fill={filled ? "gold" : "none"}
+        stroke="black"
+        strokeWidth="1"
+      />
+    </svg>
   );
 }
 
