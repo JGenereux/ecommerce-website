@@ -1,6 +1,8 @@
 import Navbar from "../navbar/navbar";
 import Footer from "../footer";
 import contactbg from "../../Images/contactbg.jpg";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Contact() {
   return (
@@ -28,17 +30,59 @@ export default function Contact() {
 }
 
 function Form() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [text, setText] = useState("");
+
+  async function handleSendEmail() {
+    const newEmail = {
+      email: email,
+      subject: subject,
+      text: text,
+    };
+
+    try {
+      await axios.post("http://localhost:5000/semail", newEmail);
+    } catch (error) {
+      window.alert(error);
+    }
+  }
+
   return (
     <div className="contactForm">
-      <form className="contactForm-container">
+      <form className="contactForm-container" onSubmit={handleSendEmail}>
         <label htmlFor="name">NAME *</label>
-        <input type="text" id="name" required></input>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        ></input>
         <label htmlFor="email">EMAIL *</label>
-        <input type="email" id="email" required></input>
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        ></input>
         <label htmlFor="subject">SUBJECT *</label>
-        <input type="text" id="subject" required></input>
-        <label htmlFor="question">YOUR MESSAGE *</label>
-        <textarea id="question" required></textarea>
+        <input
+          type="text"
+          id="subject"
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+          required
+        ></input>
+        <label htmlFor="text">YOUR MESSAGE *</label>
+        <textarea
+          id="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          required
+        ></textarea>
         <button type="submit">Submit</button>
       </form>
     </div>

@@ -36,8 +36,6 @@ async function uploadImage(imageBuffer) {
 }
 
 router.route("/api/upload").post(upload.single("image"), async (req, res) => {
-  console.log(req.file);
-
   try {
     const imageUrl = await uploadImage(req.file.buffer);
     res.json({ imageUrl });

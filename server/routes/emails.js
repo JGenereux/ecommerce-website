@@ -4,8 +4,8 @@ const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: `${process.env.EMAIL}`,
-    pass: `${process.env.SECRET}`,
+    user: process.env.EMAIL,
+    pass: process.env.SECRET,
   },
 });
 
@@ -14,10 +14,10 @@ router.route("/").post(async (req, res) => {
   try {
     const newEmail = await req.body;
     const mailOptions = {
-      from: `${process.env.EMAIL}`,
-      to: `${newEmail.email}`,
-      subject: `${newEmail.subject}`,
-      text: `${newEmail.text}`,
+      from: process.env.EMAIL,
+      to: newEmail.email,
+      subject: newEmail.subject,
+      text: newEmail.text,
     };
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
@@ -31,3 +31,5 @@ router.route("/").post(async (req, res) => {
     res.status(400).json("Error: " + error);
   }
 });
+
+module.exports = router;

@@ -30,12 +30,15 @@ const usersRouter = require("./routes/userdb");
 const reviewsRouter = require("./routes/reviews");
 //import stripe api payment route
 const stripeRouter = require("./routes/checkout");
+//import email api
+const emailRouter = require("./routes/emails");
 
 app.use("/inventory", inventoryRouter);
 app.use("/image", imageRouter);
 app.use("/users", usersRouter);
 app.use("/checkout", stripeRouter);
 app.use("/reviews", reviewsRouter);
+app.use("/semail", emailRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started at port ${PORT}`);
