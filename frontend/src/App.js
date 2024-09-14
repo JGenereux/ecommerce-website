@@ -5,7 +5,7 @@ import Home from "./Components/home";
 import Shop from "./Components/Shop/shop";
 import ItemPage from "./Components/Shop/itempage";
 import About from "./Components/about";
-import Contact from "./Components/contact";
+import Contact from "./Components/Contact/contact";
 import Inventory from "./Components/inventory";
 
 import { AuthProvider } from "./Components/login/authcontext";

@@ -84,6 +84,9 @@ function Item() {
     }
   }, [cartItems, itemName, seen]);
 
+  //add cap to number of reviews added
+  //proper checking of review info being uploaded
+
   function handleAddToCart() {
     //don't add anything if it has no quantity!
     if (quantity === 0) return;
@@ -112,31 +115,11 @@ function Item() {
             {category === "T-Shirts" && (
               <>
                 {colors.length > 0 && (
-                  <div className="select-itemcolor">
-                    <label htmlFor="colors">Colors: </label>
-                    <br />
-                    <select name="colors" className="size-label">
-                      {colors?.map((color, index) => (
-                        <option value={color} key={index}>
-                          {color}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <CategoryOptions category={colors} label="Colors" />
                 )}
 
                 {sizes.length > 0 && (
-                  <div className="select-itemsize">
-                    <label htmlFor="sizes">Sizes: </label>
-                    <br />
-                    <select name="sizes" className="size-label">
-                      {sizes?.map((size, index) => (
-                        <option value={size} key={index}>
-                          {size}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <CategoryOptions category={sizes} label="Sizes" />
                 )}
               </>
             )}
@@ -147,35 +130,16 @@ function Item() {
                   : "itemOptions-container"
               }
             >
-              <label className="quantity-text">Quantity</label>
-              <div className="additem-button">
-                {/*needs to reset to 0 when removing from cart */}
-                <button
-                  onClick={() => {
-                    const newQuantity = quantity >= 1 ? quantity - 1 : 0;
-                    setQuantity(newQuantity);
-
-                    if (newQuantity === 0) {
-                      removeFromCart(itemName);
-                    } else {
-                      updateItemQuantity(itemName, newQuantity);
-                    }
-                  }}
-                >
-                  -
-                </button>
-                {/* To synchronize quality from itempage and cart */}
-                <p className="item-quantity">{quantity}</p>
-                <button
-                  onClick={() => {
-                    const newQuantity = quantity >= 99 ? 99 : quantity + 1;
-                    setQuantity(newQuantity);
-                    updateItemQuantity(itemName, newQuantity);
-                  }}
-                >
-                  +
-                </button>
+              <div className="additembtn-container">
+                <QuantityButton
+                  quantity={quantity}
+                  setQuantity={setQuantity}
+                  updateItemQuantity={updateItemQuantity}
+                  removeFromCart={removeFromCart}
+                  itemName={itemName}
+                />
               </div>
+
               <button className="addtocart-btn" onClick={handleAddToCart}>
                 Add To Cart
               </button>
@@ -187,6 +151,64 @@ function Item() {
       ) : (
         <Loading />
       )}
+    </div>
+  );
+}
+
+function CategoryOptions({ category, label }) {
+  return (
+    <div className="select-itemcolor">
+      <label htmlFor={`${label}`}>{`${label}`}: </label>
+      <br />
+      <select name={`${label}`} className="size-label">
+        {category?.map((category, index) => (
+          <option value={category} key={index}>
+            {category}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+function QuantityButton({
+  quantity,
+  setQuantity,
+  updateItemQuantity,
+  removeFromCart,
+  itemName,
+}) {
+  return (
+    <div>
+      <label className="quantity-text">Quantity</label>
+      <div className="additem-button">
+        {/*needs to reset to 0 when removing from cart */}
+        <button
+          onClick={() => {
+            const newQuantity = quantity >= 1 ? quantity - 1 : 0;
+            setQuantity(newQuantity);
+
+            if (newQuantity === 0) {
+              removeFromCart(itemName);
+            } else {
+              updateItemQuantity(itemName, newQuantity);
+            }
+          }}
+        >
+          -
+        </button>
+        {/* To synchronize quality from itempage and cart */}
+        <p className="item-quantity">{quantity}</p>
+        <button
+          onClick={() => {
+            const newQuantity = quantity >= 99 ? 99 : quantity + 1;
+            setQuantity(newQuantity);
+            updateItemQuantity(itemName, newQuantity);
+          }}
+        >
+          +
+        </button>
+      </div>
     </div>
   );
 }
@@ -237,10 +259,7 @@ function CreateReview({ itemName, setCreateOpen }) {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/reviews/create",
-        newReview
-      );
+      await axios.post("http://localhost:5000/reviews/create", newReview);
       //no response is sent. if review is uploaded successfully then this section will be reached
       handleResetReview();
     } catch (error) {

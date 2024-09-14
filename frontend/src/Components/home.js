@@ -1,8 +1,5 @@
 import header from "../Images/header.jpg";
-import fblogo from "../Images/fblogo.png";
-import iglogo from "../Images/iglogo.png";
-import navbarlogo from "../Images/navbarLogo.png";
-
+import Footer from "./footer";
 import Navbar from "./navbar/navbar";
 import axios from "axios";
 import "../styles/home.css";
@@ -179,27 +176,6 @@ function Description() {
         <Link to="/contact" className="item-links">
           <p>Request Product</p>
         </Link>
-      </div>
-    </div>
-  );
-}
-
-function Footer() {
-  return (
-    <div className="footer-container">
-      <img
-        className="footer-mainLogo"
-        src={navbarlogo}
-        alt="Heartland Shoppes Logo"
-      ></img>
-      <h3 className="footer-text">Connect With Me</h3>
-      <div className="footer-icons">
-        <a href="https://www.facebook.com/DonnaHeartlandShoppes">
-          <img src={fblogo} alt="facebook logo"></img>
-        </a>
-        <a href="https://www.instagram.com/heartlandshoppes.etsy/">
-          <img src={iglogo} alt="instagram logo"></img>
-        </a>
       </div>
     </div>
   );
