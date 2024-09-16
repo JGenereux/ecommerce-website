@@ -29,12 +29,9 @@ function App() {
             <Route
               path="/inventory"
               element={
-                /*
                 <ProtectedRoute allowedRoles={["admin"]}>
                   <Inventory />
                 </ProtectedRoute>
-                */
-                <Inventory />
               }
             />
           </Routes>
