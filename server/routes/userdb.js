@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Users = require("../Models/users.models");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 //check if user is in database
 router.route("/").get(async (req, res) => {
