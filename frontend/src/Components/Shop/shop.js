@@ -54,7 +54,9 @@ function LoadInventory({ category }) {
   useEffect(() => {
     async function fetchInvData() {
       try {
-        const response = await axios.get("http://localhost:5000/inventory/");
+        const response = await axios.get(
+          "https://heartland-shoppes-server.vercel.app/inventory/"
+        );
         let fetchedItems = response.data;
 
         //Only sort if needed
