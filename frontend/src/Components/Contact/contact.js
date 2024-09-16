@@ -43,7 +43,10 @@ function Form() {
     };
 
     try {
-      await axios.post("http://localhost:5000/semail", newEmail);
+      await axios.post(
+        "https://heartland-shoppes-server.vercel.app/semail",
+        newEmail
+      );
     } catch (error) {
       window.alert(error);
     }

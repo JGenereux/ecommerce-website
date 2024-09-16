@@ -145,7 +145,7 @@ function SearchBar({
     async function fetchSearch() {
       try {
         const response = await axios.get(
-          `http://localhost:5000/inventory/substr/${reqItem}`
+          `https://heartland-shoppes-server.vercel.app/inventory/substr/${reqItem}`
         );
         setItems(response.data);
       } catch (error) {
@@ -214,7 +214,7 @@ function Cart({ setCartActive, cartItems }) {
   async function handleCheckout() {
     try {
       const response = await axios.post(
-        "http://localhost:5000/checkout/create-checkout-session",
+        "https://heartland-shoppes-server.vercel.app/checkout/create-checkout-session",
         { cartItems }
       );
 

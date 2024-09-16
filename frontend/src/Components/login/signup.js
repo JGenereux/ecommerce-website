@@ -27,7 +27,7 @@ function SignupForm() {
   async function checkEmail(username) {
     try {
       const response = await axios.get(
-        `http://localhost:5000/users?email=${username}`
+        `https://heartland-shoppes-server.vercel.app/users?email=${username}`
       );
       const foundEmail = response.data;
 
@@ -73,7 +73,7 @@ function SignupForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/users/signup",
+        "https://heartland-shoppes-server.vercel.app/users/signup",
         newUser
       );
 

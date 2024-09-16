@@ -60,7 +60,7 @@ function Item() {
     async function fetchItemData() {
       try {
         const response = await axios.get(
-          `http://localhost:5000/inventory/${name}`
+          `https://heartland-shoppes-server.vercel.app/inventory/${name}`
         );
         handleData(response.data);
       } catch (error) {
@@ -259,7 +259,10 @@ function CreateReview({ itemName, setCreateOpen }) {
     };
 
     try {
-      await axios.post("http://localhost:5000/reviews/create", newReview);
+      await axios.post(
+        "https://heartland-shoppes-server.vercel.app/reviews/create",
+        newReview
+      );
       //no response is sent. if review is uploaded successfully then this section will be reached
       handleResetReview();
     } catch (error) {
@@ -312,7 +315,7 @@ function Reviews({ itemName }) {
     async function fetchReviews() {
       try {
         const response = await axios.get(
-          `http://localhost:5000/reviews/${itemName}`
+          `https://heartland-shoppes-server.vercel.app/reviews/${itemName}`
         );
         setReviews(response.data);
       } catch (error) {
