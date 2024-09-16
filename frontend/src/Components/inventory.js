@@ -60,7 +60,9 @@ function Categories() {
   useEffect(() => {
     async function fetchAllItems() {
       try {
-        const response = await axios.get("http://localhost:5000/inventory/");
+        const response = await axios.get(
+          "https://heartland-shoppes-server.vercel.app/inventory/"
+        );
         fetchAllCategories(response.data);
       } catch (error) {
         console.log("Error fetching all items for inventory. " + error);
@@ -151,7 +153,7 @@ function AddForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/image/api/upload",
+        "https://heartland-shoppes-server.vercel.app/image/api/upload",
         formData,
         {
           headers: {
@@ -211,7 +213,7 @@ function AddForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/inventory/add",
+        "https://heartland-shoppes-server.vercel.app/inventory/add",
         newItem
       );
 
