@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 //middlewares
 app.use(cors()); //allows for cross origin resource sharing between servers different than this one.
@@ -13,7 +13,7 @@ app.use(express.json()); //allows for simple json parsing.
 
 //connect to database
 const url = process.env.ATLAS_URI;
-mongoose.connect(url);
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const connection = mongoose.connection;
 connection.once("open", () => {
