@@ -7,13 +7,6 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  /*
-  const { user } = useAuth();
-  //check user role on mount
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-  */
   return (
     <div>
       <Navbar />
@@ -60,7 +53,9 @@ function FeaturedProducts() {
   useEffect(() => {
     async function getFetchedItems() {
       try {
-        const response = await axios.get("http://localhost:5000/inventory/");
+        const response = await axios.get(
+          "https://heartland-shoppes-server.vercel.app/inventory/"
+        );
         const fetchedItems = response.data;
 
         const slicedItems = fetchedItems.slice(0, 4);
