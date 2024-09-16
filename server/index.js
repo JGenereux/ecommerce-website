@@ -40,6 +40,10 @@ app.use("/checkout", stripeRouter);
 app.use("/reviews", reviewsRouter);
 app.use("/semail", emailRouter);
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the API!");
+});
+
 app.listen(PORT, () => {
   console.log(`Server started at port ${PORT}`);
 });
