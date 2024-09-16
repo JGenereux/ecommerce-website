@@ -9,11 +9,11 @@ const PORT = process.env.PORT;
 
 //middlewares
 app.use(cors()); //allows for cross origin resource sharing between servers different than this one.
-app.use(express.json()); //allows for parsing of jsons.
+app.use(express.json()); //allows for simple json parsing.
 
 //connect to database
 const url = process.env.ATLAS_URI;
-mongoose.connect(url); // { useNewUrlParser: true, useUnifiedTopology: true } dont need but might need it idk
+mongoose.connect(url);
 
 const connection = mongoose.connection;
 connection.once("open", () => {
