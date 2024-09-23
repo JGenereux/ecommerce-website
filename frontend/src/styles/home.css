@@ -755,6 +755,7 @@ ul {
   display: flex;
   flex-direction: row;
   width: 800px;
+  justify-content: center;
   padding-top: 5%;
 }
 
@@ -828,6 +829,7 @@ ul {
 }
 
 .itemInfo-text h3 {
+  font-family: customFont;
   font-size: 26px;
 }
 
@@ -1202,4 +1204,15 @@ ul {
   box-shadow: 5px 4px 6px rgba(7, 7, 7, 0.603);
   margin-bottom: 20px;
   cursor: pointer;
+}
+
+.loading-container {
+  margin-top: 40vh;
+  text-align: center;
+  gap: 0px;
+}
+
+.loading-container h3 {
+  font-size: 28px;
+  font-family: customFont;
 }

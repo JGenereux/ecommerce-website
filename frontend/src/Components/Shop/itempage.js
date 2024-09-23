@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import Navbar from "../navbar/navbar";
-
+import Loading from "../Misc/Loading";
 import { CartContext } from "../navbar/CartContext";
 
 export default function ItemPage() {
@@ -400,8 +400,4 @@ function Star({ filled, onClick }) {
       />
     </svg>
   );
-}
-
-function Loading() {
-  return <h1 style={{ padding: "50%" }}>Loading</h1>;
 }
